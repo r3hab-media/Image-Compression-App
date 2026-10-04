@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Changelog &middot; Image Squeezer</title>
+  <meta name="description" content="What has changed in Image Squeezer, newest first, with the date of each change.">
+  <meta name="theme-color" content="#11161d">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preload" as="font" type="font/woff2" href="fonts/archivo-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    // Applied before first paint so a saved theme never flashes the wrong colors.
+    try {
+      const t = localStorage.getItem('theme');
+      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+    } catch {}
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-in">
+      <a class="brand" href="./">
+        <img src="img/image-squeezer-vice-grip.png" alt="" width="34" height="34">
+        <span>Image Squeezer</span>
+      </a>
+      <span class="topbar-tag">Local &middot; offline &middot; nothing uploaded</span>
+      <a class="topbar-link" href="changelog.html" aria-current="page">Changelog</a>
+      <button id="theme" class="icon-btn" type="button" aria-label="Switch theme">
+        <svg class="i-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="i-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap log">
+    <header class="log-head">
+      <h1 class="display">Changelog</h1>
+      <p class="log-lede">
+        Every change to Image Squeezer, newest first, with the date and time it was made.
+      </p>
+      <p class="log-note">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 11v6"/><path d="M12 7.5v.01"/></svg>
+        Image Squeezer has no release numbers. The service worker caches against a hash of the
+        shipped files, so an installed copy updates whenever those files actually change.
+      </p>
+    </header>
+
+    <section class="log-group" aria-labelledby="d-2026-10-02">
+      <h2 id="d-2026-10-02" class="display log-group-head">
+        <time datetime="2026-10-02">October 2, 2026</time>
+      </h2>
+      <ul class="log-list">
+        <li class="log-item">
+          <div class="log-meta">
+            <time datetime="2026-10-02T18:16-07:00">6:16 PM</time>
+            <span class="log-tag">Interface</span>
+          </div>
+          <h3>Changelog page</h3>
+          <p>This page. A record of what changed and when, linked from the top bar.</p>
+        </li>
+        <li class="log-item">
+          <div class="log-meta">
+            <time datetime="2026-10-02T18:10-07:00">6:10 PM</time>
+            <span class="log-tag">Installing</span>
+          </div>
+          <h3>Precache the maskable icon</h3>
+          <p>The maskable icon was referenced by the manifest but left out of the precache list, so a
+            cold offline install could be missing it.</p>
+        </li>
+        <li class="log-item">
+          <div class="log-meta">
+            <time datetime="2026-10-02T17:58-07:00">5:58 PM</time>
+            <span class="log-tag">Interface</span>
+          </div>
+          <h3>Redesign around the squeezer artwork</h3>
+          <p>New hero layout, a light and dark theme with a toggle that remembers the choice, and a
+            reworked results list.</p>
+        </li>
+        <li class="log-item">
+          <div class="log-meta">
+            <time datetime="2026-10-02T15:48-07:00">3:48 PM</time>
+            <span class="log-tag">Compression</span>
+          </div>
+          <h3>Fall back to lossless PNG when the quantizer traps</h3>
+          <p><code>quantize_image</code> panics with a wasm <code>unreachable</code> error on some
+            images. Encoding now catches that and produces a lossless PNG instead of failing the
+            file outright. The fallback is larger than a quantized PNG would have been.</p>
+        </li>
+        <li class="log-item">
+          <div class="log-meta">
+            <time datetime="2026-10-02T15:37-07:00">3:37 PM</time>
+            <span class="log-tag">Results</span>
+          </div>
+          <h3>Share buttons removed</h3>
+          <p>The per-result Share button was dropped. Coverage for sharing files through
+            <code>navigator.share</code> was inconsistent enough that the button was often present
+            and non-functional. Copy and download cover the same ground.</p>
+        </li>
+        <li class="log-item">
+          <div class="log-meta">
+            <time datetime="2026-10-02T15:35-07:00">3:35 PM</time>
+            <span class="log-tag">Results</span>
+          </div>
+          <h3>Copy button</h3>
+          <p>Puts a compressed result straight on the clipboard, for pasting into a document or chat without a round trip through the downloads folder.</p>
+        </li>
+        <li class="log-item">
+          <div class="log-meta">
+            <time datetime="2026-10-02T15:30-07:00">3:30 PM</time>
+            <span class="log-tag">Results</span>
+          </div>
+          <h3>Share buttons</h3>
+          <p>Send a compressed result to another app through the system share sheet.</p>
+        </li>
+        <li class="log-item">
+          <div class="log-meta">
+            <time datetime="2026-10-02T15:23-07:00">3:23 PM</time>
+            <span class="log-tag">Compression</span>
+          </div>
+          <h3>Target file size</h3>
+          <p>Set a size in KB and the encoder searches for a quality that lands under it, instead of
+            holding the quality slider fixed. Quality is now also passed through to the JPEG encoder,
+            which it previously was not.</p>
+        </li>
+        <li class="log-item">
+          <div class="log-meta">
+            <time datetime="2026-10-02T15:19-07:00">3:19 PM</time>
+            <span class="log-tag">Results</span>
+          </div>
+          <h3>Before and after comparison</h3>
+          <p>A slider wipes between the original and the compressed version at full size, so a quality setting can be judged before committing to it.</p>
+        </li>
+        <li class="log-item">
+          <div class="log-meta">
+            <time datetime="2026-10-02T15:10-07:00">3:10 PM</time>
+            <span class="log-tag">Installing</span>
+          </div>
+          <h3>Open image files from the operating system</h3>
+          <p>Registers as a handler for the supported image types, so an installed copy can be set as the app that opens a JPG, PNG, WebP, HEIC and the rest.</p>
+        </li>
+        <li class="log-item">
+          <div class="log-meta">
+            <time datetime="2026-10-02T15:09-07:00">3:09 PM</time>
+            <span class="log-tag">Installing</span>
+          </div>
+          <h3>Accept images from the system share sheet</h3>
+          <p>Share images to Image Squeezer from another app. The service worker takes the POST,
+            parks the files in a cache, and redirects to a normal page load that picks them up.</p>
+        </li>
+        <li class="log-item">
+          <div class="log-meta">
+            <time datetime="2026-10-02T15:07-07:00">3:07 PM</time>
+            <span class="log-tag">Compression</span>
+          </div>
+          <h3>Quality slider</h3>
+          <p>Exposes the encoder quality from 40 to 95 rather than leaving it pinned at the default 80.</p>
+        </li>
+        <li class="log-item">
+          <div class="log-meta">
+            <time datetime="2026-10-02T14:49-07:00">2:49 PM</time>
+            <span class="log-tag">Installing</span>
+          </div>
+          <h3>In-page install button</h3>
+          <p>Surfaces installation without digging through a browser menu. Stays hidden in browsers that do not fire the install prompt event.</p>
+        </li>
+        <li class="log-item">
+          <div class="log-meta">
+            <time datetime="2026-10-02T14:25-07:00">2:25 PM</time>
+            <span class="log-tag">Compression</span>
+          </div>
+          <h3>Output format picker</h3>
+          <p>Choose JPG, PNG or WebP explicitly, or leave it on Auto, which encodes to several and
+            keeps whichever comes out smallest.</p>
+        </li>
+        <li class="log-item">
+          <div class="log-meta">
+            <time datetime="2026-10-02T13:48-07:00">1:48 PM</time>
+            <span class="log-tag">Build</span>
+          </div>
+          <h3>Build on CI instead of committing build output</h3>
+          <p>The bundled worker, the wasm codecs and the generated service worker are no longer in the
+            repository. A GitHub Actions workflow builds them on every push to <code>main</code> and
+            publishes to Pages, so the repository holds only source.</p>
+        </li>
+        <li class="log-item">
+          <div class="log-meta">
+            <time datetime="2026-10-02T13:40-07:00">1:40 PM</time>
+            <span class="log-tag">Build</span>
+          </div>
+          <h3>Initial commit</h3>
+          <p>Drop, resize and re-encode up to five images at a time, entirely in the browser, with
+            per-image and zipped downloads and an offline-capable service worker.</p>
+        </li>
+      </ul>
+    </section>
+
+    <p class="log-back"><a href="./"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg> Back to the squeezer</a></p>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot-in">
+      <span class="display foot-brand">Image Squeezer</span>
+      <span class="mono-note">A local-first image compressor</span>
+    </div>
+  </footer>
+
+  <script type="module" src="js/theme.js"></script>
+</body>
+</html>
